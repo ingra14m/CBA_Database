@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HideDemo</title>
+    <style>
+        button{
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        #areaDiv{
+            outline-color: black;
+            background-color: aquamarine;
+            width: 586px;    /*   根据图片尺寸调整   */
+            height: 404px;
+        }
+        #LiHong{
+            width: 300px;
+            height: 300px;
+        }
+        #loading {
+            width:170px;
+            height:25px;
+            border:3px solid #C3DAF9;
+            position:absolute;
+            top:300px;
+            left:600px;
+            z-index:10000;
+            background-color:#F7F9FC;
+            line-height:25px;
+            vertical-align:middle;
+            font-size:11pt;
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 双击显示隐藏图片 -->
+    <script>
+        // 全局变量
+        var ishiding = false;
+        var code = "";
+        var startTime, currentTime, endTime;
+        var reactEle;
+    </script>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+
+    </script>
+
+
+    <script type="text/javascript">
+        // 声明全局的函数
+        function getTimeNow()//获取此刻时间
+        {
+            var now=new Date();
+            return now.getTime();
+        }
+
+        // function draw(id) {
+        //     var canvas = document.getElementById(id);
+        //     if (canvas) {
+        //         var context = canvas.getContext("2d");
+        //         console.log(context)
+        //         context.fillStyle = "#DDDDDD";
+        //         context.fillRect(0, 0, 400, 400);
+        //         context.strokeStyle = "black";
+        //         context.fillStyle = "gray";
+        //         context.opacity = 0;
+        //         context.lineWidth = 5;
+        //         context.fillRect(0,0,200,300);
+        //         context.strokeRect(0,0,200,200);
+        //     } else {
+        //         return;
+        //     }
+        // }
+        // function drawBorder(id) {
+        //     var canvas = document.getElementById(id);
+        //     if (canvas) {
+        //         var context = canvas.getContext("2d");
+        //         context.fillStyle = "red";
+        //         context.strokeStyle = "black";
+        //         context.lineWidth = 5;
+        //         context.fillRect(0,0, 300, 200);
+        //         context.strokeRect(0,0,300,200);
+        //     } else {
+        //         return;
+        //     }
+        // }
+
+        function Rect(options) {
+            this._init(options);
+        }
+        Rect.prototype={
+            //属性
+            _init:function (options) {
+                //父标签
+                this.parentId=options.parentId;
+                //位置
+                this.left=options.left||100;
+                this.top=options.top||100;
+                //自身的属性
+                this.width=options.width||0;
+                this.height=options.height||0;
+                this.bgColor=options.bgColor||'blank';
+                this.borderRadius=options.borderRadius||0;
+                this.border=options.border||'none';
+            },
+            //行为
+            render:function () {
+                //1.获取父标签
+                var parentEle=document.getElementById(this.parentId);
+                //2.创建矩形标签
+                if (!document.getElementById("cube")){
+                    reactEle = document.createElement('div');
+                    reactEle.id = "cube";
+                    parentEle.appendChild(reactEle);
+                }
+                else {
+                    reactEle = document.getElementById("cube");
+                }
+                reactEle.style.position='absolute';
+                reactEle.style.left=this.left+'px';
+                reactEle.style.top=this.top+'px';
+                reactEle.style.opacity = 0.2;
+                reactEle.style.width=this.width+'px';
+                reactEle.style.height=this.height+'px';
+
+                reactEle.style.backgroundColor=this.bgColor;
+                reactEle.style.border=this.border;
+                reactEle.style.borderRadius=this.borderRadius+'px';
+            }
+        }
+
+
+    </script>
+
+    <div id="areaDiv" >
+        <img src="static/assets/img/Wang.png" id="immg">
+    </div>
+
+    <div id="loading"><img src="${path}/map/image/2012032811155512.gif" alt=""/>正在加载数据,请稍候...</div>
+
+    <div id="showDiv">""</div>
+
+    <input id="range" type="range" min="0" max="100" value="50" step="1" oninput="change()" onchange="change()">
+    <span id="value">50</span>
+
+
+    <script >
+        // 实现图片的相关操作
+        var areaDiv = document.getElementById("areaDiv");
+        var showDiv = document.getElementById("showDiv");
+        console.log(areaDiv.offsetLeft);
+        var img_x = areaDiv.offsetLeft;
+        var img_y = areaDiv.offsetTop;
+        var img_width = areaDiv.offsetWidth;
+        var img_height = areaDiv.offsetHeight;
+        var x;
+        var y;
+        var isLoading = false;                     // 是否需要加载图片
+        var radius = 0;
+        var isOperate = false;
+        var rect;
+
+        areaDiv.onmousemove = function (event){    // 鼠标移动到图片上
+            x = event.clientX;
+            y = event.clientY;
+            isLoading = true;
+        }
+
+        areaDiv.onmouseout = function (){          // 鼠标离开图片
+            isLoading = false;
+        }
+
+        areaDiv.onmousedown = function (){
+            timeStart = getTimeNow()
+            isOperate = true;
+            currentTime = setInterval(function (){        // 只是一个Interval对象
+                timeEnd = getTimeNow();
+                radius += 2;
+                if (timeEnd - timeStart > 3000){
+                    clearInterval(currentTime);
+                    radius = 1000;                        // 表示框选整个图
+                }
+                showDiv.innerHTML = "x = "+ (x - img_x)/ img_width + " , y =  "+(y - img_y)/img_height + " , radius = "+radius; // 计算百分比
+                console.log("x = "+ (x - img_x) + " , y =  "+(y - img_y));
+                if (radius >= 1000){                   // 超过3s则框选整个图片
+                    rect =new Rect({
+                        parentId:'areaDiv',
+                        left:img_x,
+                        top:img_y,
+                        width:img_width,
+                        height:img_height,
+                        bgColor:'blank',
+                        borderRadius:0,
+                        border:'2px solid black'
+                    });
+                }
+                else {
+                    rect =new Rect({             // 否则实时渲染图片
+                        parentId:'areaDiv',
+                        left:(x - radius),
+                        top:(y - radius),
+                        width:2 * radius,
+                        height:2 * radius,
+                        bgColor:'blank',
+                        borderRadius:0,
+                        border:'2px solid black'
+                    });
+                }
+
+                rect.render();
+            },40);
+
+            // var xmlhttp = new XMLHttpRequest();
+            // if (xmlhttp!=null)                          // 检验xmlhttp是否有效
+            // {
+            //     xmlhttp.open("GET",'http://localhost:8080/Test',true);  // 传给这个路由来处理
+            //     xmlhttp.send((x - img_x),(y - img_y), radius);
+            // }
+            // else
+            // {
+            //     alert("Your browser does not support XMLHTTP.");
+            // }
+        }
+        //显示加载数据
+        function ShowDiv() {
+            $("#loading").show();
+        }
+
+        //隐藏加载数据
+        function HiddenDiv() {
+            $("#loading").hide();
+        }
+
+        // 提交图片的参数给后端（还没测试 应该可以）
+        function trans() {
+            var xPercent = (x - img_x)/ img_width;
+            var yPercent = (y - img_y)/img_height;
+            var tranRadius = radius;
+
+            var data= {
+                data: JSON.stringify({
+                    'x': xPercent,
+                    'y': yPercent,
+                    'radius':tranRadius,
+                })
+            }
+            $.ajax({
+                async: true,
+                beforeSend: function () {
+                    ShowDiv();
+                },
+                complete: function () {
+                    HiddenDiv();
+                },
+                url:"{{ url_for('img_operate') }}",
+                type:"post",
+                data:data,
+                dataType: 'json',
+                success:function(data){
+                    //成功后的一些操作
+                    alert("success");
+                    /*
+                    rect = new Rect();
+                    rect.render();*/
+                    console.log(data);
+                    var current = document.getElementById("immg");
+                    current.src = "static/assets/img/handle.png";
+                    //window.location.href = "/img_operate";
+                    /*
+                    var child = document.getElementById("cube");
+                    document.removeChild(child);*/
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+
+                    //alert(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+　　　　            // $("#p_test").innerHTML = "there is something wrong!";
+　　　　               // alert(XMLHttpRequest.status);
+　　　　            // alert(XMLHttpRequest.readyState);
+　　　　            // alert(textStatus);
+　　              }
+            })
+
+        }
+
+        areaDiv.onmouseup = function (){
+            clearInterval(currentTime);
+            if (isOperate){
+                trans();
+                isOperate = false;
+            }
+            radius = 0;
+            areaDiv.removeChild(reactEle);
+            //document.removeChild(reactEle);
+        }
+    </script>
+
+    <script>
+        // 实现滚动条
+        function change() {
+            var value = document.getElementById('range').value ;
+            document.getElementById('value').innerHTML = value;
+        }
+    </script>
+
+
+-->
+    <!--<input type="image" src="LiHong.jpg" id="LiHong">-->
+<!--
+    <script>
+        img_hide = document.getElementById("LiHong");
+        img_hide.ondblclick = function (){              // 仅仅是增加一个功能而已，不会反复调用的
+            ishiding = !ishiding;
+            console.log(ishiding);
+            if (ishiding){
+                img_hide.src = "YunDi.jpg";
+            }
+            else {
+                img_hide.src = "LiHong.jpg";
+            }
+        }
+    </script>
+
+
+
+
+    <script>
+        console.log(code)
+    </script>
+    -->
+</body>
+</html>
