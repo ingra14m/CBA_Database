@@ -1,0 +1,74 @@
+
+.team-info {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    grid-template-columns: 33% 33% 33%;
+}
+
+#city {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#time {
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#coach {
+    grid-row-start: 3;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#sub-coach {
+    grid-row-start: 4;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#champion {
+    grid-row-start: 5;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#logo {
+    grid-column-start: 3;
+    grid-row-start: 1;
+    grid-row-end: 5;
+}
+
+.elem-title {
+    grid-row-start: 1;
+    grid-row-end: 5;
+    grid-column-start: 1;
+}
+
+.elem-contain {
+    grid-row-start: 1;
+    grid-row-end: 5;
+    grid-column-start: 2;
+}
+
+.logo {
+    grid-row-start: 1;
+    grid-row-end: 5;
+    grid-column-start: 3;
+}
+
+
