@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <script>
+    /*
+    score  90--100  A级
+           80--90   B级
+           70--80   C级
+           60--70   D级
+           0-- 60   E级
+    */
+
+    // 控制具体打印多少行---乘法口诀
+  for(var l=1;l<=9;l++){
+    // 控制每一行的具体打印情况和换行
+    for (var i = 1; i <= l; i++) {
+      document.write(i+"*"+l+"="+i*l,'\t')
+      }
+      document.write("<br/>")
+  }
+  document.write('<a href="/index">')
+    document.write('1254</a>')
+
+  </script>
+<script>
+            document.write('<table border="2">')
+            document.write('<tr>')
+            document.write('<td>sdsf</td>')
+                document.write('</tr>')
+            for(var i=0; i < length({{ information }});i++){
+                document.write('<tr>')
+                for (var j = 0; j < length({{ information }}[i]);j++){
+                    if ( j === 0){
+                        var player = {{ information }}[i][j]
+                        document.write('<td><a href="{{ name }}/' + player + '"'+' target="_blank">周琦</a></td>')
+                    }
+                    else {
+                        document.write('<td>')
+                        document.write('{{ information }}[i][j]')
+                        document.write('</td>')
+                    }
+                }
+                    document.write('<td>sdsf</td>')
+                document.write('</tr>')
+            }
+            document.write('</table>')
+        </script>
+</body>
+</html>
+
+
+{#document.write('<table border="2">')#}
+{#            document.write('<tr>')#}
+{#            document.write('<td>{{ information[0][1] }}</td>')#}
+{#                document.write('</tr>')#}
+{#            for(var i=0; i < length({{ information }});i++){#}
+{#                document.write('<tr>')#}
+{#                for (var j = 0; j < length({{ information[i] }});j++){#}
+{#                    if ( j === 0){#}
+{#                        var player = {{ information }}[i][j]#}
+{#                        document.write('<td><a href="{{ name }}/' + player + '"'+' target="_blank">周琦</a></td>')#}
+{#                    }#}
+{#                    else {#}
+{#                        document.write('<td>')#}
+{#                        document.write({{ information }}[i][j])#}
+{#                        document.write('</td>')#}
+{#                    }#}
+{#                }#}
+{#                document.write('</tr>')#}
+{#            }#}
+{#            document.write('</table>')#}
