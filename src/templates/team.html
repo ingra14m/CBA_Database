@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>111</title>
+</head>
+<body>
+<a>球员信息:</a>
+<br/>
+ <table border="1">
+     <!--  由球队部分跳转到球员部分，有bug  -->
+     <script>
+         var teamIntro = '{{ introduce }}'
+         console.log(teamIntro[1]);
+         var myInformation = '{{ information }}';
+         myInformation = myInformation.split(/[\[\]]/);
+         for (var z = 0; z < myInformation.length; ++z){
+             myInformation[z] = myInformation[z].split(/,/);
+         }
+         var name = '{{ name }}';
+         {#console.log(myInformation.length);#}
+         //alert(typeof myInformation);
+         var reg = /\u4e00-\u9fa5/;
+         var float = /Decimal/;
+         for (var i = 0; i < myInformation.length; i++){
+             if (myInformation[i].length <= 2){
+                 {#console.log(myInformation[i]);#}
+                 continue;
+             }
+             {#console.log(myInformation[i]);#}
+             {#console.log(myInformation[i].length);#}
+             {#console.log(i);#}
+             document.write("<tr>");
+             for (var j = 0; j < myInformation[i].length; j++){
+                 {#reg.test(myInformation[i][j][1])#}
+                 if (j == 0 && i > 3){
+                     document.write('<td>');
+                     document.write('<a href="' + name + '/' + myInformation[i][j]+'"' + ' target = "_blank">' + myInformation[i][j] +'</a>');
+                     document.write('</td>');
+                 }
+                 else {
+                     document.write('<td>');
+                     {#document.write(myInformation[i][j].replace("&#39;",""));#}
+                     {#console.log(myInformation[i][j].replace("&#39;",""));#}
+                     /*
+                     if (float.test(myInformation[i][j])){
+                         document.write(myInformation[i][j].match(/[0-9\.]/g).join(''));
+                     }
+                     else {
+                        document.write(myInformation[i][j]);
+                     }*/
+                     document.write('</td>');
+                 }
+             }
+             document.write("</tr>");
+         }
+     </script>
+ </table>
+</body>
+</html>
