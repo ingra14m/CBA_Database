@@ -24,6 +24,7 @@
     <link rel='stylesheet' href='../static/assets/css/bigslam-style-custom.css' type='text/css' media='all'>
     <link rel='stylesheet' href='../static/assets/plugins/google-map-plugin/assets/css/frontend.css' type='text/css'
           media='all'>
+    <link rel='stylesheet' href='../static/assets/css/style-title.css' type='text/css' media='all'>
 
     <link rel='stylesheet'
           href='https://fonts.googleapis.com/css?family=Roboto+Condensed%3A300%2C300italic%2Cregular%2Citalic%2C700%2C700italic%7CRoboto%3A100%2C100italic%2C300%2C300italic%2Cregular%2Citalic%2C500%2C500italic%2C700%2C700italic%2C900%2C900italic%7CMerriweather%3A300%2C300italic%2Cregular%2Citalic%2C700%2C700italic%2C900%2C900italic%7CLora%3Aregular%2Citalic%2C700%2C700italic&subset=cyrillic-ext%2Cvietnamese%2Clatin%2Ccyrillic%2Cgreek-ext%2Clatin-ext%2Cgreek&ver=5.3'
@@ -49,7 +50,7 @@
             var ttile = document.getElementById("tittle");
             ttile.innerText = name + "队";
             {#console.log(teamIntro);#}
-            document.getElementById("coach").innerText = data[1];
+            document.getElementById("coach").innerHTML = data[1];
             document.getElementById("city").innerText = data[0];
             document.getElementById("champion").innerText = data[2];
             document.getElementById("sub-coach").innerText = data[3];
@@ -750,21 +751,97 @@
             <!-- header -->
         </div>
 
-
         <div class="bigslam-page-title-wrap  bigslam-style-medium bigslam-left-align">
             <div class="bigslam-header-transparent-substitute"></div>
             <div class="bigslam-page-title-overlay"></div>
             <div class="bigslam-page-title-container bigslam-container">
                 <div class="bigslam-page-title-content bigslam-item-pdlr">
-                    <h1 class="bigslam-page-title" id="tittle">2019数据</h1></div>
-                    <h1 class="bigslam-page-title" id="coach"></h1>
-                    <h1 class="bigslam-page-title" id="city"></h1>
-                    <h1 class="bigslam-page-title" id="champion"></h1>
-                    <h1 class="bigslam-page-title" id="time"></h1>
-                    <h1 class="bigslam-page-title" id="sub-coach"></h1>
-                    <img class="bigslam-page-title" id="logo">
+                    <h1 class="bigslam-page-title" id="playerName">{{ name }}</h1></div>
             </div>
         </div>
+
+        <div class=" bigslam-sidebar-center bigslam-column-40 bigslam-line-height">
+                        <div class="gdlr-core-page-builder-body">
+                            <div class="gdlr-core-pbf-section">
+                                <div class="gdlr-core-pbf-section-container gdlr-core-container clearfix">
+                                    <div class="gdlr-core-pbf-element">
+                                        <div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr">
+                                            <div class="gdlr-core-title-item-title-wrap ">
+                                                <h3 class="gdlr-core-title-item-title gdlr-core-skin-title "
+                                                    style="font-size: 26px ;">球队信息<span
+                                                        class="gdlr-core-title-item-title-divider gdlr-core-skin-divider"></span>
+                                                </h3></div>
+                                        </div>
+                                    </div>
+                                    <div class="gdlr-core-pbf-element">
+                                        <div class="gdlr-core-text-box-item gdlr-core-item-pdlr gdlr-core-item-pdb gdlr-core-left-align">
+                                            <div class="gdlr-core-text-box-item-content" style="text-transform: none ;">
+                                                <div class="sportspress sp-widget-align-none">
+                                                    <div class="sp-template sp-template-player-photo sp-template-photo sp-player-photo" style="padding-top: 80px">
+                                                        <img width="150" height="99"
+                                                             src={{ introduce[0][5].replace(" ","").replace('"','')}}>
+
+                                                    </div>
+                                                    <div class="sp-template sp-template-player-details sp-template-details">
+                                                        <div class="sp-list-wrapper">
+                                                            <dl class="sp-player-details">
+                                                                <dt>主教练</dt>
+                                                                <dd id="coach">{{ introduce[0][1] }}</dd>
+                                                                <dt>城市</dt>
+                                                                <dd id="city">{{ introduce[0][0] }}</dd>
+                                                                <dt>总冠军数</dt>
+                                                                <dd id="champion">{{ introduce[0][2] }}</dd>
+                                                                <dt>成立时间</dt>
+                                                                <dd id="time">{{ introduce[0][4] }}</dd>
+                                                                <dt>助理教练</dt>
+                                                                <dd id="sub-coach">{{ introduce[0][3] }}</dd>
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+{#        <div class="bigslam-page-title-wrap  bigslam-style-medium bigslam-left-align">#}
+{#            <div class="bigslam-header-transparent-substitute"></div>#}
+{#            <div class="bigslam-page-title-overlay"></div>#}
+{#            <div class="bigslam-page-title-container bigslam-container">#}
+{#                <div class="bigslam-page-title-content bigslam-item-pdlr">#}
+{#                    <h1 class="bigslam-page-title" id="tittle">2019数据</h1>#}
+{#                </div>#}
+{#                #}
+{#                <div class="team-info">#}
+{#                    <div class="elem-title" style="color: black; font-size: 20pt">主教练</div>#}
+{#                    <div class="elem-contain"><div class="bigslam-page-title" id="coach"#}
+{#                                                   style="color: black; font-size: 20pt"></div></div>#}
+{##}
+{#                    <div class="elem-title" style="color: black; font-size: 20pt">城市</div>#}
+{#                    <div class="elem-contain"><div class="bigslam-page-title" id="city"#}
+{#                                                   style="color: black; font-size: 20pt"></div></div>#}
+{##}
+{#                    <div class="elem-title" style="color: black; font-size: 20pt">总冠军数</div>#}
+{#                    <div class="elem-contain"><div class="bigslam-page-title" id="champion"#}
+{#                                                   style="color: black; font-size: 20pt"></div></div>#}
+{##}
+{#                    <div class="elem-title" style="color: black; font-size: 20pt">成立时间</div>#}
+{#                    <div class="elem-contain"><div class="bigslam-page-title" id="time"#}
+{#                                                   style="color: black; font-size: 20pt"></div></div>#}
+{##}
+{#                    <div class="elem-title" style="color: black; font-size: 20pt">助理教练</div>#}
+{#                    <div class="elem-contain"><div class="bigslam-page-title" id="sub-coach"#}
+{#                                                   style="color: black; font-size: 20pt"></div></div>#}
+{##}
+{#                    <div class="logo"><img class="bigslam-page-title" id="logo" alt="logo"#}
+{#                     width="35%" height="35%"></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
 
 
         <div class="gdlr-core-pbf-element">
@@ -810,7 +887,7 @@
                                         for (var j = 0; j < myInformation[i].length; j++) {
                                             if (j == 0 && i > 3) {
                                                 document.write('<td class="data-name">');
-                                                document.write('<a href="' + name + '/' + myInformation[i][j] + '"' + ' target = "_blank">' + myInformation[i][j].replace(/&#39;/g, "") + '</a>');
+                                                document.write('<a href="' + name + '/' + myInformation[i][j].replace(/&#39;/g, "") + '"' + ' target = "_blank">' + myInformation[i][j].replace(/&#39;/g, "") + '</a>');
                                                 document.write('</td>');
                                             } else if (j == 1 && i > 3) {
                                                 document.write('<td class="data-team">');
