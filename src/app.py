@@ -19,7 +19,7 @@ def team(name):
     db = pymysql.connect(
         user='cba2020',
         passwd='cba2020',
-        db='cba'
+        db='cba2020'
     )
     cursor = db.cursor()
     nameInSql = '"' + name + '"'
@@ -80,7 +80,6 @@ def player(Name, player):
         user='cba2020',
         passwd='cba2020',
         db='cba2020'
-
     )
     NameInSQL = '"' + Name + '"'
     playerInSQL = '"' + player + '"'
@@ -94,8 +93,8 @@ def player(Name, player):
         sql_player = '''
                     select *
                     from %s
-                    where `球队` = %s and `姓名` = "唐正东"
-            ''' % (Lib, NameInSQL)
+                    where `球队` = %s and `姓名` = %s
+            ''' % (Lib, NameInSQL, playerInSQL)
 
         cursor.execute(sql_player)
         alldata2 = cursor.fetchall()
